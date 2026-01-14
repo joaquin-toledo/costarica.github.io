@@ -1,0 +1,22 @@
+mkdir Jtoledo1.github.io
+cd Jtoledo1.github.io
+git init
+cat > index.html <<'HTML'
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Mis temas académicos — J. Toledo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  <h1>Bienvenido a mis apuntes</h1>
+  <p>Aquí agruparé mis temas académicos: apuntes, ejercicios y referencias.</p>
+</body>
+</html>
+HTML
+git add .
+git commit -m "Sitio inicial"
+git branch -M main
+git remote add origin https://github.com/Jtoledo1/Jtoledo1.github.io.git
+git push -u origin main
