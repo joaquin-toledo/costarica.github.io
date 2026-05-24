@@ -1,22 +1,982 @@
-mkdir Jtoledo1.github.io
-cd Jtoledo1.github.io
-git init
-cat > index.html <<'HTML'
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Mis temas académicos — J. Toledo</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Aventura en Centroamérica! 🌴</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===================== BASE ===================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+/* ===================== TAB SWITCHER ===================== */
+.tab-switcher {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  height: 58px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+.tab-btn {
+  flex: 1;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.tab-btn .emoji { font-size: 20px; }
+
+.tab-btn.kids {
+  background: #ff6b9d;
+  color: white;
+  font-family: 'Baloo 2', cursive;
+  font-size: 16px;
+}
+.tab-btn.kids.active {
+  background: #ff3d7f;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15);
+}
+.tab-btn.kids:not(.active) { background: #ffb3d1; color: #c0306a; }
+
+.tab-btn.adults {
+  background: #2d6a4f;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+}
+.tab-btn.adults.active {
+  background: #1a3a2a;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2);
+}
+.tab-btn.adults:not(.active) { background: #7a9e8e; color: #1a3a2a; }
+
+/* ===================== VIEWS ===================== */
+.view { display: none; padding-top: 58px; }
+.view.active { display: block; }
+
+/* ===================== ★ KIDS VIEW ★ ===================== */
+#kids-view {
+  background: #fff9f0;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Hero niñas */
+.kids-hero {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff9a5c 40%, #ffd166 70%, #06d6a0 100%);
+  padding: 48px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.kids-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.floating-emojis {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.float-emoji {
+  position: absolute;
+  font-size: 28px;
+  animation: floatUp 6s ease-in-out infinite;
+  opacity: 0.7;
+}
+.float-emoji:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
+.float-emoji:nth-child(2) { left: 15%; top: 60%; animation-delay: 1s; font-size: 22px; }
+.float-emoji:nth-child(3) { left: 80%; top: 15%; animation-delay: 0.5s; }
+.float-emoji:nth-child(4) { left: 88%; top: 55%; animation-delay: 2s; font-size: 22px; }
+.float-emoji:nth-child(5) { left: 50%; top: 5%; animation-delay: 1.5s; font-size: 20px; }
+.float-emoji:nth-child(6) { left: 70%; top: 70%; animation-delay: 3s; font-size: 24px; }
+.float-emoji:nth-child(7) { left: 30%; top: 75%; animation-delay: 2.5s; font-size: 20px; }
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+}
+
+.kids-hero-inner { position: relative; z-index: 1; }
+.kids-hero h1 {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(36px, 8vw, 72px);
+  font-weight: 800;
+  color: white;
+  text-shadow: 3px 4px 0 rgba(0,0,0,0.15);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.kids-hero .subtitle {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(16px, 3vw, 22px);
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 24px;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.1);
+}
+.kids-dates-pill {
+  display: inline-block;
+  background: white;
+  color: #ff6b9d;
+  font-family: 'Baloo 2', cursive;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 24px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Country sections */
+.kids-country {
+  padding: 40px 20px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.country-banner {
+  border-radius: 24px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.country-banner.honduras {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+.country-banner.costarica {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  color: #3d2000;
+}
+.country-banner h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.country-banner .tagline {
+  font-size: 15px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.country-big-emoji {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 72px;
+  opacity: 0.3;
+}
+
+/* Day cards for kids */
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.day-card {
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+.day-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+
+.day-card.c1 { background: #fff0f8; border: 2.5px solid #ffb3d9; }
+.day-card.c2 { background: #f0fff8; border: 2.5px solid #b3ffd9; }
+.day-card.c3 { background: #f0f8ff; border: 2.5px solid #b3d9ff; }
+.day-card.c4 { background: #fffbf0; border: 2.5px solid #ffd9b3; }
+.day-card.c5 { background: #f8f0ff; border: 2.5px solid #d9b3ff; }
+.day-card.c6 { background: #fff5f0; border: 2.5px solid #ffccb3; }
+
+.day-card-date {
+  font-family: 'Baloo 2', cursive;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999;
+  margin-bottom: 4px;
+}
+.day-card-emoji { font-size: 36px; margin-bottom: 8px; display: block; }
+.day-card-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: 18px;
+  font-weight: 800;
+  color: #2d2d2d;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.day-card-desc { font-size: 13px; color: #666; line-height: 1.5; }
+.day-card-activities {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.activity-pill {
+  background: rgba(0,0,0,0.06);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  color: #444;
+}
+
+/* Fun facts */
+.fun-facts {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 24px;
+  padding: 32px;
+  color: white;
+  margin: 0 20px 40px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.fun-facts h3 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.fact-card {
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+.fact-card .fact-emoji { font-size: 32px; margin-bottom: 8px; display: block; }
+.fact-card p { font-size: 13px; line-height: 1.5; font-weight: 600; }
+
+/* countdown */
+.countdown-box {
+  background: linear-gradient(135deg, #ff6b9d, #ff9a5c);
+  border-radius: 24px;
+  padding: 32px;
+  text-align: center;
+  margin: 0 20px 48px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+}
+.countdown-box h3 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.countdown-nums {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.count-unit {
+  background: rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 16px 24px;
+  min-width: 80px;
+}
+.count-num {
+  font-family: 'Baloo 2', cursive;
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+  display: block;
+}
+.count-label { font-size: 12px; font-weight: 700; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; }
+
+/* ===================== ADULTS VIEW ===================== */
+#adults-view {
+  background: #f0f4f2;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #1a2420;
+}
+
+:root {
+  --jungle: #1a3a2a; --palm: #2d6a4f; --sea: #1a6b8a;
+  --sand: #f4e4c1; --coral: #e07b54; --gold: #d4a843;
+  --mist: #f0f4f2; --light: #7a9e8e;
+}
+
+.adults-hero {
+  background: var(--jungle);
+  color: var(--sand);
+  padding: 48px 32px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.adults-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(45,106,79,0.4) 0%, transparent 70%),
+              radial-gradient(ellipse at 20% 80%, rgba(26,107,138,0.3) 0%, transparent 60%);
+}
+.adults-hero-inner { position: relative; max-width: 1000px; margin: 0 auto; }
+.hero-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.adults-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 50px); line-height: 1.1; margin-bottom: 8px; }
+.adults-hero h1 em { font-style: italic; color: var(--coral); }
+.hero-dates { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--light); letter-spacing: 1px; }
+
+/* Summary strip */
+.summary { background: var(--palm); padding: 24px 32px; }
+.summary-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+.sum-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 16px; color: white; }
+.sum-card .s-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+.sum-card .s-value { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--sand); }
+.sum-card .s-value small { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); margin-left: 3px; }
+.sum-card .s-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.highlight-card { background: rgba(212,168,67,0.15); border-color: rgba(212,168,67,0.35); }
+
+/* Adults main */
+.adults-main { max-width: 1000px; margin: 0 auto; padding: 32px 32px 64px; }
+
+.section-title {
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--palm); margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 1px solid rgba(45,106,79,0.2); margin-top: 40px;
+}
+.section-flag {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Playfair Display', serif; font-size: 18px; margin: 32px 0 12px; color: var(--jungle);
+}
+.section-flag .sf-flag { font-size: 22px; }
+.section-flag .sf-div { flex: 1; height: 1px; background: linear-gradient(to right, rgba(45,106,79,0.3), transparent); }
+.section-flag .sf-dates { font-size: 13px; font-family: 'DM Mono', monospace; color: var(--light); }
+
+.itin-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+.itin-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); text-align: left; padding: 8px 12px; background: rgba(45,106,79,0.06); }
+.itin-table td { padding: 10px 12px; border-bottom: 1px solid rgba(0,0,0,0.05); vertical-align: top; }
+.itin-table tr:hover td { background: rgba(45,106,79,0.03); }
+
+.day-cell { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--light); white-space: nowrap; }
+.day-num { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--jungle); display: block; line-height: 1; }
+.act-main { font-weight: 500; color: var(--jungle); }
+.act-sub { font-size: 12px; color: var(--light); margin-top: 2px; line-height: 1.5; }
+.accom { font-size: 12px; color: var(--sea); }
+.cost-cell { font-family: 'DM Mono', monospace; font-size: 13px; text-align: right; white-space: nowrap; }
+.cost-ok { color: var(--palm); font-weight: 500; }
+.cost-est { color: var(--coral); }
+
+.badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; border-radius: 20px; margin-left: 5px; vertical-align: middle; }
+.b-ok { background: rgba(45,106,79,0.12); color: var(--palm); }
+.b-new { background: rgba(26,107,138,0.12); color: var(--sea); }
+.b-tip { background: rgba(212,168,67,0.12); color: var(--gold); }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; margin-top: 8px; }
+.info-card { background: white; border-radius: 12px; padding: 18px; border-left: 3px solid var(--palm); box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.info-card.sea { border-left-color: var(--sea); }
+.info-card.coral { border-left-color: var(--coral); }
+.info-card.gold { border-left-color: var(--gold); }
+.card-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; color: var(--light); }
+.info-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--jungle); }
+.info-card p, .info-card li { font-size: 12.5px; color: #4a5a52; line-height: 1.55; }
+.info-card ul { padding-left: 16px; }
+.info-card li { margin-bottom: 3px; }
+
+.route-box { background: white; border-radius: 12px; padding: 14px 20px; margin: 10px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.route-city { font-weight: 600; color: var(--jungle); font-size: 13px; }
+.route-info { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--light); display: block; }
+.route-arrow { color: var(--light); font-size: 14px; }
+
+.cash-box { background: var(--jungle); color: var(--sand); border-radius: 14px; padding: 28px 32px; margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.cash-col h3 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.cash-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 13px; }
+.cash-row:last-child { border-bottom: none; }
+.cash-row .a { font-family: 'DM Mono', monospace; font-size: 14px; }
+.cash-total { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(212,168,67,0.4); display: flex; justify-content: space-between; align-items: baseline; }
+.cash-total .cl { font-size: 13px; color: rgba(255,255,255,0.7); }
+.cash-total .ca { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--gold); }
+
+.alert-box { background: rgba(212,168,67,0.07); border: 1px solid rgba(212,168,67,0.3); border-radius: 12px; padding: 14px 18px; margin: 10px 0; font-size: 13px; color: #4a5a52; }
+
+.budget-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+.budget-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); text-align: left; padding: 8px 12px; background: rgba(45,106,79,0.06); }
+.budget-table td { padding: 9px 12px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 13px; }
+.budget-table tr:last-child td { background: rgba(45,106,79,0.06); font-weight: 700; }
+.t-right { text-align: right; font-family: 'DM Mono', monospace; }
+
+.note { font-size: 11.5px; color: #7a9e8e; font-style: italic; margin-top: 8px; }
+a { color: var(--sea); }
+
+@media(max-width:640px) {
+  .adults-main { padding: 20px 16px 48px; }
+  .adults-hero { padding: 32px 16px 24px; }
+  .summary { padding: 16px; }
+  .cash-box { grid-template-columns: 1fr; padding: 20px 16px; }
+  .itin-table th:nth-child(3), .itin-table td:nth-child(3) { display: none; }
+  .kids-hero { padding: 36px 16px 48px; }
+  .kids-country { padding: 24px 12px; }
+  .fun-facts, .countdown-box { margin-left: 12px; margin-right: 12px; }
+}
+</style>
 </head>
 <body>
-  <h1>Bienvenido a mis apuntes</h1>
-  <p>Aquí agruparé mis temas académicos: apuntes, ejercicios y referencias.</p>
+
+<!-- TAB SWITCHER -->
+<div class="tab-switcher">
+  <button class="tab-btn kids active" onclick="switchTab('kids')">
+    <span class="emoji">🌴</span> ¡Nuestra Aventura!
+  </button>
+  <button class="tab-btn adults" onclick="switchTab('adults')">
+    <span class="emoji">🗺️</span> Planificación
+  </button>
+</div>
+
+<!-- ==================== KIDS VIEW ==================== -->
+<div id="kids-view" class="view active">
+
+  <div class="kids-hero">
+    <div class="floating-emojis">
+      <span class="float-emoji">🦥</span>
+      <span class="float-emoji">🐠</span>
+      <span class="float-emoji">🌋</span>
+      <span class="float-emoji">🦜</span>
+      <span class="float-emoji">🐒</span>
+      <span class="float-emoji">🤿</span>
+      <span class="float-emoji">🌺</span>
+    </div>
+    <div class="kids-hero-inner">
+      <h1>¡Vamos de Aventura! 🎉</h1>
+      <p class="subtitle">Honduras 🇭🇳 y Costa Rica 🇨🇷 nos esperan</p>
+      <span class="kids-dates-pill">📅 28 de Junio al 5 de Julio 2026</span>
+    </div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-box">
+    <h3>⏳ ¿Cuánto falta para el viaje?</h3>
+    <div class="countdown-nums">
+      <div class="count-unit"><span class="count-num" id="cnt-days">--</span><span class="count-label">días</span></div>
+      <div class="count-unit"><span class="count-num" id="cnt-hours">--</span><span class="count-label">horas</span></div>
+      <div class="count-unit"><span class="count-num" id="cnt-mins">--</span><span class="count-label">minutos</span></div>
+    </div>
+  </div>
+
+  <!-- COSTA RICA DAYS (las niñas solo van a CR) -->
+  <div class="kids-country">
+    <div class="country-banner costarica">
+      <div class="country-big-emoji">🦥</div>
+      <h2>🇨🇷 ¡Costa Rica!</h2>
+      <p class="tagline">Volcanes, selvas, playas y animales increíbles</p>
+    </div>
+
+    <div class="days-grid">
+
+      <div class="day-card c2">
+        <div class="day-card-date">Domingo 28 Jun</div>
+        <span class="day-card-emoji">🌋</span>
+        <div class="day-card-title">¡Llegamos a La Fortuna!</div>
+        <div class="day-card-desc">Al lado del Volcán Arenal. Un volcán de verdad, enorme y majestuoso que podemos ver desde el pueblo.</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">🚌 Bus panorámico</span>
+          <span class="activity-pill">🛒 Supermercado</span>
+          <span class="activity-pill">🌋 Ver el volcán</span>
+        </div>
+      </div>
+
+      <div class="day-card c5">
+        <div class="day-card-date">Lunes 29 Jun</div>
+        <span class="day-card-emoji">🩵</span>
+        <div class="day-card-title">Río Celeste</div>
+        <div class="day-card-desc">Un río de color azul eléctrico MÁGICO. El color viene de reacciones volcánicas bajo el agua. ¡Parece de película!</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">🥾 Caminata en selva</span>
+          <span class="activity-pill">📸 Fotos increíbles</span>
+          <span class="activity-pill">🌿 Parque Nacional</span>
+        </div>
+      </div>
+
+      <div class="day-card c4">
+        <div class="day-card-date">Martes 30 Jun</div>
+        <span class="day-card-emoji">♨️</span>
+        <div class="day-card-title">¡Cascada + Aguas Termales!</div>
+        <div class="day-card-desc">Primero una cascada impresionante, y después a las termales — piscinas calentitas por el volcán. ¡Como un spa natural!</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">💧 Catarata La Fortuna</span>
+          <span class="activity-pill">♨️ Termales Baldi</span>
+          <span class="activity-pill">🏊 Piscinas</span>
+        </div>
+      </div>
+
+      <div class="day-card c3">
+        <div class="day-card-date">Miércoles 1 Jul</div>
+        <span class="day-card-emoji">🌊</span>
+        <div class="day-card-title">¡Al Pacífico!</div>
+        <div class="day-card-desc">Viajamos a Montezuma, un pueblito de playa súper lindo en la Península de Nicoya. Cruzamos en ferry por el mar.</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">⛴️ Ferry</span>
+          <span class="activity-pill">🌅 Playa nueva</span>
+          <span class="activity-pill">🏖️ Montezuma</span>
+        </div>
+      </div>
+
+      <div class="day-card c1">
+        <div class="day-card-date">Jueves 2 Jul</div>
+        <span class="day-card-emoji">🐠</span>
+        <div class="day-card-title">Isla Tortuga + Snorkel</div>
+        <div class="day-card-desc">¡En bote a una isla virgen! Hacemos snorkel y vemos peces de colores, corales y si tenemos suerte... ¡tortugas!</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">🚤 Bote a la isla</span>
+          <span class="activity-pill">🤿 Snorkel</span>
+          <span class="activity-pill">🏝️ Playa virgen</span>
+        </div>
+      </div>
+
+      <div class="day-card c6">
+        <div class="day-card-date">Viernes 3 Jul</div>
+        <span class="day-card-emoji">🌿</span>
+        <div class="day-card-title">Reserva Cabo Blanco</div>
+        <div class="day-card-desc">El lugar más salvaje de la Península. Monos, pájaros exóticos y playas sin gente. ¡La naturaleza en estado puro!</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">🐒 Monos cariblancos</span>
+          <span class="activity-pill">🦜 Aves tropicales</span>
+          <span class="activity-pill">🏖️ Playa salvaje</span>
+        </div>
+      </div>
+
+      <div class="day-card c2">
+        <div class="day-card-date">Sábado 4 Jul</div>
+        <span class="day-card-emoji">🏨</span>
+        <div class="day-card-title">Hotel Marriott en San José</div>
+        <div class="day-card-desc">Última noche en un hotel re lindo en la capital. Cena especial de despedida de Costa Rica. 🥲</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">🏙️ Ciudad capital</span>
+          <span class="activity-pill">🍽️ Cena especial</span>
+          <span class="activity-pill">⭐ Hotel Marriott</span>
+        </div>
+      </div>
+
+      <div class="day-card c4">
+        <div class="day-card-date">Domingo 5 Jul</div>
+        <span class="day-card-emoji">✈️</span>
+        <div class="day-card-title">Vuelo a casa</div>
+        <div class="day-card-desc">Con la mochila llena de recuerdos, fotos y historias increíbles. ¡Ya van a querer volver!</div>
+        <div class="day-card-activities">
+          <span class="activity-pill">✈️ Vuelo</span>
+          <span class="activity-pill">🏠 A casa</span>
+          <span class="activity-pill">🥰 Recuerdos</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FUN FACTS -->
+  <div class="fun-facts">
+    <h3>🤩 ¿Sabías que...?</h3>
+    <div class="facts-grid">
+      <div class="fact-card">
+        <span class="fact-emoji">🦥</span>
+        <p>Los perezosos duermen hasta <strong>20 horas por día</strong>. ¡Los van a ver en Costa Rica!</p>
+      </div>
+      <div class="fact-card">
+        <span class="fact-emoji">🌋</span>
+        <p>El Volcán Arenal estuvo activo hasta el año 2010. ¡Tiene <strong>1.670 metros</strong> de altura!</p>
+      </div>
+      <div class="fact-card">
+        <span class="fact-emoji">🩵</span>
+        <p>El Río Celeste es azul por una <strong>reacción química</strong> entre minerales volcánicos. ¡No hay otro igual en el mundo!</p>
+      </div>
+      <div class="fact-card">
+        <span class="fact-emoji">🦜</span>
+        <p>En Honduras hay <strong>guacamayas</strong> rojas y verdes libres. Son el animal símbolo de Copán.</p>
+      </div>
+      <div class="fact-card">
+        <span class="fact-emoji">🐠</span>
+        <p>Roatán tiene el <strong>2do arrecife de coral más grande del mundo</strong>. ¡Con miles de peces de colores!</p>
+      </div>
+      <div class="fact-card">
+        <span class="fact-emoji">🐒</span>
+        <p>Costa Rica tiene <strong>4 tipos de monos</strong>: cariblancos, aulladores, araña y ardilla. ¡Todos en libertad!</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END KIDS VIEW -->
+<!- ==================== ADULTS VIEW ==================== -->
+<div id="adults-view" class="view">
+
+  <div class="adults-hero">
+    <div class="adults-hero-inner">
+      <div class="hero-label">Planificación detallada · 2026</div>
+      <h1>Honduras <em>&</em> Costa Rica</h1>
+      <div class="hero-dates">19 Jun — 5 Jul · 17 noches · Solo / Con amigo / Con familia (CR)</div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <div class="summary-inner">
+      <div class="sum-card">
+        <div class="s-label">Confirmado pagado</div>
+        <div class="s-value">$2.323<small>USD</small></div>
+        <div class="s-sub">Vuelos + todos los alojamientos</div>
+      </div>
+      <div class="sum-card">
+        <div class="s-label">Estimado adicional</div>
+        <div class="s-value">~$800<small>USD</small></div>
+        <div class="s-sub">Comidas, traslados, actividades</div>
+      </div>
+      <div class="sum-card highlight-card">
+        <div class="s-label">Total estimado (tu parte)</div>
+        <div class="s-value">~$3.125<small>USD</small></div>
+        <div class="s-sub">Para 1 persona todo el viaje</div>
+      </div>
+      <div class="sum-card">
+        <div class="s-label">Efectivo recomendado</div>
+        <div class="s-value">$640<small>USD</small></div>
+        <div class="s-sub">$300 Honduras · $340 Costa Rica</div>
+      </div>
+      <div class="sum-card">
+        <div class="s-label">Noches reservadas</div>
+        <div class="s-value">13<small>✓</small></div>
+        <div class="s-sub">De 17 totales (faltan 4 por reservar)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="adults-main">
+
+    <!-- HONDURAS -->
+    <div class="section-flag">
+      <span class="sf-flag">🇭🇳</span>
+      <span>Honduras</span>
+      <span class="sf-div"></span>
+      <span class="sf-dates">19–27 Jun · Solo / Con amigo</span>
+    </div>
+
+    <table class="itin-table">
+      <thead><tr><th>Día</th><th>Actividad</th><th>Alojamiento</th><th style="text-align:right">Tu gasto est.</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="day-cell"><span class="day-num">19</span>Vie · Jun</td>
+          <td>
+            <div class="act-main">✈️ Llegada a Honduras <span class="badge b-ok">pago</span></div>
+            <div class="act-sub">Vuelo pagado ($320). Traslado aeropuerto → Comayagua ~$15–20. Trajes para la boda.</div>
+          </td>
+          <td class="accom">Hotel Casamiento ✓</td>
+          <td class="cost-cell"><span class="cost-ok">$156</span><br><span class="cost-est" style="font-size:11px">+$35 extras</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">20</span>Sáb · Jun</td>
+          <td>
+            <div class="act-main">💒 Matrimonio</div>
+            <div class="act-sub">Comidas y brindis incluidos en la boda.</div>
+          </td>
+          <td class="accom">Hotel Casamiento ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$25</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">21</span>Dom · Jun</td>
+          <td>
+            <div class="act-main">🛋️ Descanso — Uruguay Mundial ⚽</div>
+            <div class="act-sub">Buscar bar con pantalla. Comayagua: mercado, plaza central, catedral colonial.</div>
+          </td>
+          <td class="accom">Hotel Casamiento ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$20</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">22</span>Lun · Jun</td>
+          <td>
+            <div class="act-main">🏝️ Viaje a Roatán <span class="badge b-ok">pago</span></div>
+            <div class="act-sub">Ferry desde La Ceiba (~$30 ida+vuelta) o vuelo interno. 3 noches en Hotel Turquoise.</div>
+          </td>
+          <td class="accom">Hotel Turquoise ✓</td>
+          <td class="cost-cell"><span class="cost-ok">$588</span><br><span class="cost-est" style="font-size:11px">+$35 traslado</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">23</span>Mar · Jun</td>
+          <td>
+            <div class="act-main">🤿 Roatán libre <span class="badge b-tip">sugerido</span></div>
+            <div class="act-sub">Buceo o snorkel en West Bay (~$35–45). Segundo arrecife de coral más grande del mundo.</div>
+          </td>
+          <td class="accom">Hotel Turquoise ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$55</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">24</span>Mié · Jun</td>
+          <td>
+            <div class="act-main">🚗 Roatán → SPS → Copán (auto alquilado)</div>
+            <div class="act-sub">Ferry de regreso + traslado SPS. <strong>Retiran el auto en aeropuerto SPS</strong> → Copán Ruinas ~3.5hs por CA-4 (ruta segura y pavimentada). Noche en Copán.</div>
+          </td>
+          <td class="accom">Copán Ruinas <span style="color:var(--coral)">⚠ reservar</span></td>
+          <td class="cost-cell"><span class="cost-est">~$55</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">25</span>Jue · Jun</td>
+          <td>
+            <div class="act-main">🏛️ Ruinas de Copán — Día 1</div>
+            <div class="act-sub">Entrada ~$15/pp. Sitio maya Patrimonio UNESCO. Museo Escultura Maya (+$7). Guía local ~$20. Incluido en el "auto" del itinerario.</div>
+          </td>
+          <td class="accom">Copán Ruinas ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$45</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">26</span>Vie · Jun</td>
+          <td>
+            <div class="act-main">🦜 Copán — Día 2 + regreso a SPS</div>
+            <div class="act-sub">Macaw Mountain Bird Park mañana (~$15). Tarde: mercado artesanal. <strong>Regreso en el auto a SPS</strong>, noche en SPS antes del vuelo.</div>
+          </td>
+          <td class="accom">San Pedro Sula <span style="color:var(--coral)">⚠ reservar</span></td>
+          <td class="cost-cell"><span class="cost-est">~$45</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">27</span>Sáb · Jun</td>
+          <td>
+            <div class="act-main">✈️ SPS → San José CR <span class="badge b-ok">pago</span></div>
+            <div class="act-sub">Vuelo pagado ($176). Devolver auto en aeropuerto SPS. <strong>Llegada tarde de noche a SJO</strong> → noche en hotel céntrico (~$40). No hay buses a La Fortuna a esa hora.</div>
+          </td>
+          <td class="accom">Hotel SJO <span style="color:var(--coral)">⚠ reservar</span></td>
+          <td class="cost-cell"><span class="cost-ok">$176</span><br><span class="cost-est" style="font-size:11px">+$25 taxi<br>+$40 hotel</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- AUTO COPÁN -->
+    <div class="section-title">🚗 Auto alquilado — Copán (entre 2)</div>
+    <div class="route-box">
+      <div><span class="route-city">SPS Aeropuerto<span class="route-info">miérc 24/6 — retiro</span></span></div>
+      <span class="route-arrow">→</span>
+      <div><span class="route-city">Copán Ruinas<span class="route-info">170km · ~3.5hs · CA-4</span></span></div>
+      <span class="route-arrow">→</span>
+      <div><span class="route-city">Copán (2 días)<span class="route-info">juev 25 + vier 26</span></span></div>
+      <span class="route-arrow">→</span>
+      <div><span class="route-city">SPS — Devolución<span class="route-info">vier 26/6 tarde</span></span></div>
+    </div>
+    <div class="cards-grid" style="margin-top:12px">
+      <div class="info-card gold">
+        <div class="card-label">💰 Costo estimado (entre 2)</div>
+        <ul>
+          <li>Alquiler: ~$45–60/día × 2 días = $90–120</li>
+          <li>Gasolina: ~$25 total</li>
+          <li>Peajes: ~$5</li>
+          <li><strong>Tu parte: ~$60–75</strong></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <div class="card-label">📋 Dónde alquilar</div>
+        <ul>
+          <li>Hertz, Budget, Alamo — en aeropuerto SPS</li>
+          <li>Reservar online con anticipación (más barato)</li>
+          <li>Necesitás tarjeta de crédito para depósito</li>
+          <li>Ruta CA-4: pavimentada, segura, sin problemas</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- COSTA RICA -->
+    <div class="section-flag">
+      <span class="sf-flag">🇨🇷</span>
+      <span>Costa Rica</span>
+      <span class="sf-div"></span>
+      <span class="sf-dates">28 Jun — 5 Jul · Con novia + 2 niñas</span>
+    </div>
+
+    <div class="alert-box">
+      ⚡ <strong>Contexto grupo:</strong> A partir del 28/6 viajás con tu novia y sus dos niñas (4 personas). Alojamientos confirmados en los tres destinos. Los costos abajo son <strong>tu parte</strong>. Acordar cómo dividir gastos grupales.
+    </div>
+
+    <div class="route-box">
+      <div><span class="route-city">San José<span class="route-info">noche 27/6 — hotel solo</span></span></div>
+      <span class="route-arrow">→</span>
+      <div><span class="route-city">La Fortuna<span class="route-info">272km · bus ~$5 · 28–30 Jun</span></span></div>
+      <span class="route-arrow">→</span>
+      <div><span class="route-city">Montezuma/Cabuya<span class="route-info">176km + ferry · 1–3 Jul</span></span></div>
+      <span class="route-arrow">→</span>
+      <div><span class="route-city">Delta Marriott SJO<span class="route-info">4 Jul · vuelo 5 Jul</span></span></div>
+    </div>
+
+    <table class="itin-table" style="margin-top:12px">
+      <thead><tr><th>Día</th><th>Actividad</th><th>Alojamiento</th><th style="text-align:right">Tu gasto est.</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="day-cell"><span class="day-num">28</span>Dom · Jun</td>
+          <td>
+            <div class="act-main">🌋 San José → La Fortuna <span class="badge b-new">confirmado</span></div>
+            <div class="act-sub">Bus directo desde Terminal 7-10 (~$5/pp, salidas 6:15am y 8:00am, ~4hs). O shuttle ~$25/pp. Te encontrás con el grupo en La Fortuna.</div>
+          </td>
+          <td class="accom">La Fortuna ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$35</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">29</span>Lun · Jun</td>
+          <td>
+            <div class="act-main">🩵 Río Celeste <span class="badge b-tip">pendiente</span></div>
+            <div class="act-sub">Tour guiado ~$55–65/pp incl. transporte (recomendado con niñas). Entrada sola: ~$12 adulto + taxi $80 ida/vuelta. Caminata ~4km selva húmeda. <strong>Reservar cupo online en sinac.go.cr.</strong> Evaluar si las niñas aguantan.</div>
+          </td>
+          <td class="accom">La Fortuna ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$65</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">30</span>Mar · Jun</td>
+          <td>
+            <div class="act-main">♨️ Catarata + Termales Baldi</div>
+            <div class="act-sub">Mañana: Catarata La Fortuna ~$20 entrada. Tarde: Termales Baldi ~$25/pp (múltiples piscinas, apto niñas). Vista al Volcán Arenal.</div>
+          </td>
+          <td class="accom">La Fortuna ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$55</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">1</span>Mié · Jul</td>
+          <td>
+            <div class="act-main">🌊 Traslado → Montezuma / Cabuya <span class="badge b-new">confirmado</span></div>
+            <div class="act-sub">Shuttle La Fortuna → Puntarenas (~3hs) + ferry a Paquera (~1hs, $2/pp) + bus a Montezuma (~1.5hs). O shuttle directo ~$50/pp. Ruta preciosa por Península de Nicoya.</div>
+          </td>
+          <td class="accom">Montezuma/Cabuya ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$55</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">2</span>Jue · Jul</td>
+          <td>
+            <div class="act-main">🐠 Isla Tortuga + snorkel</div>
+            <div class="act-sub">Tour en bote ~$50–60/pp incl. snorkel + playa virgen (ideal para niñas). O: Cascada de Montezuma (gratuita) + pozas naturales en Cabuya en marea baja.</div>
+          </td>
+          <td class="accom">Montezuma/Cabuya ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$60</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">3</span>Vie · Jul</td>
+          <td>
+            <div class="act-main">🌿 Reserva Cabo Blanco</div>
+            <div class="act-sub">~$12 entrada. Extremo más salvaje de la Península: playas vírgenes, monos, aves exóticas. Tarde: mercado + restaurante frente al mar.</div>
+          </td>
+          <td class="accom">Montezuma/Cabuya ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$40</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">4</span>Sáb · Jul</td>
+          <td>
+            <div class="act-main">🏨 Regreso → Delta Marriott SJO <span class="badge b-new">confirmado</span></div>
+            <div class="act-sub">Shuttle Montezuma → SJO ~$50/pp (~4.5hs). Tarde libre: Mercado Central, barrio Escalante. Cena de despedida. <a href="https://www.marriott.com/en-us/hotels/sjode-delta-hotels-san-jose-aurola/overview/" target="_blank">Delta Hotels by Marriott ↗</a></div>
+          </td>
+          <td class="accom">Delta Marriott SJO ✓</td>
+          <td class="cost-cell"><span class="cost-est">~$70</span></td>
+        </tr>
+        <tr>
+          <td class="day-cell"><span class="day-num">5</span>Dom · Jul</td>
+          <td>
+            <div class="act-main">✈️ Vuelo a Montevideo <span class="badge b-ok">pago</span></div>
+            <div class="act-sub">Vuelo pagado ($585). Aeropuerto SJO a ~20min del Marriott.</div>
+          </td>
+          <td class="accom">—</td>
+          <td class="cost-cell"><span class="cost-ok">$585</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- EFECTIVO -->
+    <div class="section-title">Estrategia de efectivo</div>
+    <div class="cash-box">
+      <div class="cash-col">
+        <h3>🇭🇳 Honduras</h3>
+        <div class="cash-row"><span>Comidas (8 días)</span><span class="a">$80</span></div>
+        <div class="cash-row"><span>Traslados y taxis</span><span class="a">$55</span></div>
+        <div class="cash-row"><span>Buceo + Ruinas Copán</span><span class="a">$60</span></div>
+        <div class="cash-row"><span>Auto Copán (tu parte)</span><span class="a">$65</span></div>
+        <div class="cash-row"><span>Hotel SJO noche 27/6</span><span class="a">$40</span></div>
+        <div class="cash-total"><span class="cl">Total Honduras</span><span class="ca">$300</span></div>
+      </div>
+      <div class="cash-col">
+        <h3>🇨🇷 Costa Rica</h3>
+        <div class="cash-row"><span>Comidas (7 días, tu parte)</span><span class="a">$100</span></div>
+        <div class="cash-row"><span>Bus SJO → La Fortuna</span><span class="a">$5</span></div>
+        <div class="cash-row"><span>Traslados CR (tu parte)</span><span class="a">$80</span></div>
+        <div class="cash-row"><span>Río Celeste (si van)</span><span class="a">$65</span></div>
+        <div class="cash-row"><span>Actividades grupales (tu parte)</span><span class="a">$60</span></div>
+        <div class="cash-row"><span>Imprevistos</span><span class="a">$30</span></div>
+        <div class="cash-total"><span class="cl">Total Costa Rica</span><span class="ca">$340</span></div>
+      </div>
+    </div>
+    <p class="note">💡 Honduras: USD ampliamente aceptado. Costa Rica: cambiá ~$80 a colones para buses locales y mercados. Evitá cambiar en aeropuertos. Llevá Visa/Mastercard débito como respaldo.</p>
+
+    <!-- PRESUPUESTO FINAL -->
+    <div class="section-title">Resumen total del presupuesto</div>
+    <table class="budget-table">
+      <thead><tr><th>Categoría</th><th class="t-right">Confirmado</th><th class="t-right">Estimado</th><th class="t-right">Total</th></tr></thead>
+      <tbody>
+        <tr><td>✈️ Vuelos (MVD→HON + HON→CR + CR→MVD)</td><td class="t-right cost-ok">$1.081</td><td class="t-right">—</td><td class="t-right cost-ok">$1.081</td></tr>
+        <tr><td>🏨 Hotel Casamiento + Hotel Turquoise (Honduras)</td><td class="t-right cost-ok">$744</td><td class="t-right">—</td><td class="t-right cost-ok">$744</td></tr>
+        <tr><td>🏨 La Fortuna + Montezuma + Marriott SJO (CR, tu parte)</td><td class="t-right cost-ok">~$498</td><td class="t-right">—</td><td class="t-right cost-ok">~$498</td></tr>
+        <tr><td>🍽️ Comidas (17 días · ~$15/día)</td><td class="t-right">—</td><td class="t-right cost-est">~$255</td><td class="t-right cost-est">~$255</td></tr>
+        <tr><td>🚗 Auto alquilado Copán (tu parte, entre 2)</td><td class="t-right">—</td><td class="t-right cost-est">~$65</td><td class="t-right cost-est">~$65</td></tr>
+        <tr><td>🚌 Traslados internos Honduras + noche SJO 27/6</td><td class="t-right">—</td><td class="t-right cost-est">~$120</td><td class="t-right cost-est">~$120</td></tr>
+        <tr><td>🚌 Traslados internos Costa Rica (tu parte)</td><td class="t-right">—</td><td class="t-right cost-est">~$135</td><td class="t-right cost-est">~$135</td></tr>
+        <tr><td>🤿 Actividades Honduras</td><td class="t-right">—</td><td class="t-right cost-est">~$80</td><td class="t-right cost-est">~$80</td></tr>
+        <tr><td>🦥 Actividades Costa Rica (tu parte)</td><td class="t-right">—</td><td class="t-right cost-est">~$155</td><td class="t-right cost-est">~$155</td></tr>
+        <tr><td>⚡ Imprevistos (~10%)</td><td class="t-right">—</td><td class="t-right cost-est">~$113</td><td class="t-right cost-est">~$113</td></tr>
+        <tr>
+          <td><strong>TOTAL ESTIMADO (tu parte)</strong></td>
+          <td class="t-right"><strong>~$2.323</strong></td>
+          <td class="t-right"><strong>~$923</strong></td>
+          <td class="t-right" style="font-family:'Playfair Display',serif;font-size:18px;color:var(--jungle)"><strong>~$3.246</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">* Alojamiento CR (tu parte): La Fortuna ~$180 (3 noches / 4 personas) + Montezuma ~$168 (3 noches / 4 personas) + Marriott ~$150 (1 noche / 4 personas) ≈ $498. Ajustar según arreglo real.</p>
+    <p class="note">** Noches por confirmar: Copán Ruinas (24/6) y San Pedro Sula (26/6) — sumar ~$80 al estimado cuando reserves.</p>
+    <p class="note">*** Hotel en SJO noche 27/6 (llegada tarde de vuelo) ya incluido en traslados Honduras. Sugerido: hostal o hotel económico céntrico ~$35–50.</p>
+
+  </div>
+</div>
+<!-- END ADULTS VIEW -->
+
+<script>
+// Tab switching
+function switchTab(tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tab + '-view').classList.add('active');
+  document.querySelector('.tab-btn.' + tab).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Countdown to June 28, 2026
+function updateCountdown() {
+  const target = new Date('2026-06-28T08:00:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('cnt-days').textContent = '¡YA!';
+    document.getElementById('cnt-hours').textContent = '🎉';
+    document.getElementById('cnt-mins').textContent = '🎉';
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  document.getElementById('cnt-days').textContent = days;
+  document.getElementById('cnt-hours').textContent = hours;
+  document.getElementById('cnt-mins').textContent = mins;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+
 </body>
 </html>
-HTML
-git add .
-git commit -m "Sitio inicial"
-git branch -M main
-git remote add origin https://github.com/Jtoledo1/Jtoledo1.github.io.git
-git push -u origin main
