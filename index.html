@@ -23,6 +23,7 @@ body{font-family:'Nunito',sans-serif;background:#fff9f0;overflow-x:hidden}
 .fe:nth-child(6){left:68%;top:72%;animation-delay:3s;font-size:24px}
 .fe:nth-child(7){left:32%;top:78%;animation-delay:2.5s;font-size:20px}
 @keyframes floatUp{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-14px) rotate(5deg)}}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(120px) scale(0.5)}}
 .hero-inner{position:relative;z-index:1}
 .hero h1{font-family:'Baloo 2',cursive;font-size:clamp(34px,8vw,70px);font-weight:800;color:white;text-shadow:3px 4px 0 rgba(0,0,0,.15);line-height:1.1;margin-bottom:10px}
 .hero .sub{font-family:'Baloo 2',cursive;font-size:clamp(15px,3vw,21px);color:rgba(255,255,255,.95);margin-bottom:22px;text-shadow:1px 2px 0 rgba(0,0,0,.1)}
@@ -131,7 +132,101 @@ body{font-family:'Nunito',sans-serif;background:#fff9f0;overflow-x:hidden}
   .days-wrap,.pac-wrap,.trivia-section,.map-section{padding:0 12px}
   .sec-hdr{margin-left:12px;margin-right:12px}
   .countdown-box{margin:20px 12px}
+  .clima-section,.mochila-section,.animales-section,.tico-section{padding:0 12px}
+  .animales-grid{grid-template-columns:repeat(3,1fr)!important}
 }
+
+/* ── SECTION WRAPPER ── */
+.new-section{max-width:860px;margin:0 auto 40px;padding:0 20px}
+.ns-header{border-radius:20px 20px 0 0;padding:22px 28px;color:white;display:flex;align-items:center;gap:14px}
+.ns-header.verde{background:linear-gradient(135deg,#2d8a4f,#4caf72)}
+.ns-header.azul{background:linear-gradient(135deg,#1a6b8a,#2196c4)}
+.ns-header.morado{background:linear-gradient(135deg,#764ba2,#a855d4)}
+.ns-header.rojo{background:linear-gradient(135deg,#d62828,#f77f00)}
+.ns-icon{font-size:36px}
+.ns-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;margin-bottom:2px}
+.ns-sub{font-size:13px;opacity:.88}
+.ns-body{background:white;border-radius:0 0 20px 20px;padding:24px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+
+/* ── CLIMA ── */
+.clima-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+.clima-btn{background:linear-gradient(135deg,#1a6b8a,#2196c4);color:white;border:none;border-radius:14px;padding:14px;cursor:pointer;transition:transform .15s,box-shadow .15s;text-align:center;width:100%}
+.clima-btn:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(26,107,138,.35)}
+.clima-btn .cb-emoji{font-size:28px;display:block;margin-bottom:6px}
+.clima-btn .cb-name{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800}
+.clima-btn .cb-loc{font-size:11px;opacity:.8}
+.clima-result{background:linear-gradient(135deg,#e8f4f8,#f0f8ff);border-radius:16px;padding:20px 24px;display:none;align-items:center;gap:20px;flex-wrap:wrap}
+.clima-result.show{display:flex}
+.clima-big-icon{font-size:56px;line-height:1}
+.clima-info .ci-city{font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;color:#1a3a2a}
+.clima-info .ci-temp{font-family:'Baloo 2',cursive;font-size:42px;font-weight:800;color:#1a6b8a;line-height:1}
+.clima-info .ci-desc{font-size:13px;color:#666;margin-top:4px;text-transform:capitalize}
+.clima-info .ci-extra{font-size:12px;color:#888;margin-top:6px}
+.clima-error{color:#c0392b;font-size:13px;padding:12px;background:#ffe0d0;border-radius:10px;margin-top:8px;display:none}
+.clima-error.show{display:block}
+.clima-loading{font-family:'Baloo 2',cursive;font-size:14px;color:#1a6b8a;padding:16px;text-align:center;display:none}
+.clima-loading.show{display:block}
+
+/* ── MOCHILA ── */
+.mochila-progress{background:#f0f0f0;border-radius:20px;height:14px;margin-bottom:6px;overflow:hidden}
+.mochila-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,#06d6a0,#2196c4);transition:width .5s ease;width:0%}
+.mochila-pct{font-family:'Baloo 2',cursive;font-size:13px;color:#666;margin-bottom:16px;text-align:right}
+.mochila-cats{display:flex;flex-direction:column;gap:16px}
+.mochila-cat h4{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;color:#2d2d2d;margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid #f0f0f0}
+.mochila-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+.mochila-item{display:flex;align-items:center;gap:8px;background:#f9f9f9;border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .2s;border:2px solid transparent;font-size:13px;font-weight:600;color:#444;user-select:none}
+.mochila-item:hover{background:#e8f8f0;border-color:#06d6a0}
+.mochila-item.checked{background:#d4edda;border-color:#2d9e6b;color:#1a5c30;text-decoration:none}
+.mochila-item.checked .mi-emoji{filter:none}
+.mi-box{width:18px;height:18px;border-radius:4px;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .2s}
+.mochila-item.checked .mi-box{background:#2d9e6b;border-color:#2d9e6b;color:white}
+.mi-emoji{font-size:16px}
+.mochila-confetti{display:none;text-align:center;padding:20px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;color:#2d9e6b;background:linear-gradient(135deg,#d4edda,#a8f0c6);border-radius:16px;margin-top:16px}
+.mochila-confetti.show{display:block}
+
+/* ── ANIMALES ── */
+.animales-intro{font-size:13px;color:#666;margin-bottom:16px;line-height:1.6}
+.animales-progress{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.animales-bar-wrap{flex:1;background:#f0f0f0;border-radius:20px;height:12px;overflow:hidden}
+.animales-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,#f77f00,#ffd166);transition:width .4s ease;width:0%}
+.animales-count{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:#f77f00;white-space:nowrap}
+.animales-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.animal-card{border-radius:16px;border:2.5px solid #f0f0f0;background:#fafafa;padding:12px 8px;text-align:center;cursor:pointer;transition:all .2s;position:relative;user-select:none}
+.animal-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.1);border-color:#f77f00}
+.animal-card.spotted{background:linear-gradient(135deg,#fff9c4,#ffe082);border-color:#ffc107;box-shadow:0 4px 16px rgba(255,193,7,.3)}
+.animal-card.spotted::after{content:'✅';position:absolute;top:6px;right:8px;font-size:14px}
+.animal-emoji{font-size:36px;margin-bottom:6px;display:block;transition:transform .2s}
+.animal-card:hover .animal-emoji{transform:scale(1.15)}
+.animal-card.spotted .animal-emoji{filter:drop-shadow(0 0 8px rgba(255,193,7,.8))}
+.animal-name{font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;color:#333;line-height:1.2}
+.animal-name-es{font-size:10px;color:#888;margin-top:2px}
+.animal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:center;justify-content:center;padding:20px}
+.animal-overlay.show{display:flex}
+.animal-popup{background:white;border-radius:24px;padding:32px 28px;max-width:340px;width:100%;text-align:center;position:relative}
+.ap-close{position:absolute;top:12px;right:16px;font-size:22px;cursor:pointer;color:#999;border:none;background:none;font-weight:700}
+.ap-emoji{font-size:72px;margin-bottom:12px;display:block}
+.ap-name{font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:#2d2d2d;margin-bottom:4px}
+.ap-fact{font-size:13px;color:#666;line-height:1.6;margin-bottom:16px}
+.ap-btn{background:linear-gradient(135deg,#f77f00,#ffd166);color:#3d2000;border:none;border-radius:30px;padding:12px 28px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;cursor:pointer;transition:transform .15s}
+.ap-btn:hover{transform:scale(1.05)}
+.ap-btn.unspot{background:linear-gradient(135deg,#ccc,#eee);color:#666}
+
+/* ── TICO WORDS ── */
+.tico-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.tico-card{border-radius:16px;padding:16px;cursor:pointer;border:2.5px solid transparent;transition:all .2s;position:relative;overflow:hidden}
+.tico-card.tc1{background:#fff0f8;border-color:#ffb3d9}
+.tico-card.tc2{background:#f0fff8;border-color:#b3ffd9}
+.tico-card.tc3{background:#f0f8ff;border-color:#b3d9ff}
+.tico-card.tc4{background:#fffbf0;border-color:#ffd9b3}
+.tico-card.tc5{background:#f8f0ff;border-color:#d9b3ff}
+.tico-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.tico-word{font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#2d2d2d;margin-bottom:4px}
+.tico-phonetic{font-size:11px;color:#999;font-style:italic;margin-bottom:8px}
+.tico-reveal{display:none;font-size:13px;color:#444;line-height:1.5;background:rgba(255,255,255,.7);border-radius:10px;padding:8px 10px;margin-top:6px}
+.tico-reveal.show{display:block}
+.tico-tap{font-size:10px;color:#bbb;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.tico-star{position:absolute;top:10px;right:12px;font-size:18px;opacity:.5}
+
 </style>
 </head>
 <body>
@@ -502,6 +597,84 @@ body{font-family:'Nunito',sans-serif;background:#fff9f0;overflow-x:hidden}
   </div>
 </div>
 
+<!-- ══ CLIMA ══ -->
+<div class="new-section">
+  <div class="ns-header azul"><div class="ns-icon">🌤️</div><div><div class="ns-title">¿Qué tiempo hace ahora?</div><div class="ns-sub">Tocá un destino para ver el clima en tiempo real durante el viaje</div></div></div>
+  <div class="ns-body">
+    <div class="clima-cards">
+      <button class="clima-btn" onclick="fetchClima(CLIMA_DESTINOS[0])"><span class="cb-emoji">🐢</span><span class="cb-name">Caribe Sur</span><span class="cb-loc">Puerto Viejo</span></button>
+      <button class="clima-btn" onclick="fetchClima(CLIMA_DESTINOS[1])"><span class="cb-emoji">🌋</span><span class="cb-name">La Fortuna</span><span class="cb-loc">Volcán Arenal</span></button>
+      <button class="clima-btn" onclick="fetchClima(CLIMA_DESTINOS[2])"><span class="cb-emoji">🏝️</span><span class="cb-name">Montezuma</span><span class="cb-loc">Pacífico</span></button>
+      <button class="clima-btn" onclick="fetchClima(CLIMA_DESTINOS[3])"><span class="cb-emoji">✈️</span><span class="cb-name">San José</span><span class="cb-loc">Capital</span></button>
+    </div>
+    <div class="clima-loading" id="clima-loading">⏳ Buscando el clima...</div>
+    <div class="clima-result" id="clima-result">
+      <div class="clima-big-icon" id="clima-icon"></div>
+      <div class="clima-info"><div class="ci-city" id="clima-city"></div><div class="ci-temp" id="clima-temp"></div><div class="ci-desc" id="clima-desc"></div><div class="ci-extra" id="clima-extra"></div></div>
+    </div>
+    <div class="clima-error" id="clima-error">😕 No pudimos obtener el clima. ¿Tienen internet?</div>
+  </div>
+</div>
+
+<!-- ══ MOCHILA ══ -->
+<div class="new-section">
+  <div class="ns-header verde"><div class="ns-icon">🎒</div><div><div class="ns-title">Mi mochila de aventurera</div><div class="ns-sub">Tildá cada cosa que ya tenés lista para el viaje</div></div></div>
+  <div class="ns-body">
+    <div class="mochila-progress"><div class="mochila-bar" id="mochila-bar"></div></div>
+    <div class="mochila-pct" id="mochila-pct">0 de 0 cosas listas</div>
+    <div class="mochila-cats" id="mochila-cats"></div>
+    <div class="mochila-confetti" id="mochila-confetti">🎉 ¡¡MOCHILA LISTA!! ¡¡Estás lista para la aventura!! 🌴🦥🌊</div>
+  </div>
+</div>
+
+<!-- ══ ANIMALES ══ -->
+<div class="new-section">
+  <div class="ns-header rojo"><div class="ns-icon">🦥</div><div><div class="ns-title">Bingo de animales</div><div class="ns-sub">¿Cuántos vas a ver? Tocá cada animal cuando lo encuentres en el viaje</div></div></div>
+  <div class="ns-body">
+    <p class="animales-intro">Costa Rica tiene el 5% de la biodiversidad del planeta. ¡Tocá cada animal para saber más y marcalo cuando lo veas! 👀</p>
+    <div class="animales-progress">
+      <div class="animales-bar-wrap"><div class="animales-bar" id="animales-bar"></div></div>
+      <div class="animales-count" id="animales-count">0 / 24 vistos 🌟</div>
+    </div>
+    <div class="animales-grid" id="animales-grid"></div>
+  </div>
+</div>
+
+<div class="animal-overlay" id="animal-overlay" onclick="if(event.target===this)closeAnimalPopup()">
+  <div class="animal-popup">
+    <button class="ap-close" onclick="closeAnimalPopup()">✕</button>
+    <span class="ap-emoji" id="ap-emoji"></span>
+    <div class="ap-name" id="ap-name"></div>
+    <p class="ap-fact" id="ap-fact"></p>
+    <button class="ap-btn" id="ap-action-btn" onclick="toggleAnimalSpotted()">¡LO VI! Marcar 🎉</button>
+  </div>
+</div>
+
+<!-- ══ TICO WORDS ══ -->
+<div class="new-section">
+  <div class="ns-header morado"><div class="ns-icon">🗣️</div><div><div class="ns-title">¡Hablar como un tico!</div><div class="ns-sub">Tocá cada palabra para ver qué significa</div></div></div>
+  <div class="ns-body">
+    <div class="tico-grid">
+      <div class="tico-card tc1" onclick="toggleTico(this)"><div class="tico-star">🌟</div><div class="tico-word">¡Pura vida!</div><div class="tico-phonetic">pu-ra vi-da</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">La frase más usada de Costa Rica. Significa <strong>todo bien, hola, gracias, adiós</strong> y todo lo demás. ¡Sirve para cualquier situación!</div></div>
+      <div class="tico-card tc2" onclick="toggleTico(this)"><div class="tico-word">¡Tuanis!</div><div class="tico-phonetic">tua-nis</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Significa <strong>"qué bueno", "qué chido", "genial"</strong>. Si algo te parece increíble: "¡Tuanis mae!" y todos van a entender.</div></div>
+      <div class="tico-card tc3" onclick="toggleTico(this)"><div class="tico-word">Mae</div><div class="tico-phonetic">mae (rima con "rae")</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Es como el <strong>"che"</strong> uruguayo. Se usa entre amigos para todo: "¡Mae, mirá ese perezoso!" o "¿Cómo estás, mae?"</div></div>
+      <div class="tico-card tc4" onclick="toggleTico(this)"><div class="tico-word">Chunche</div><div class="tico-phonetic">chun-che</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Significa <strong>"cosa"</strong> cuando no sabés el nombre. "Pasame ese chunche" o "¿Qué es ese chunche verde que vuela ahí?"</div></div>
+      <div class="tico-card tc5" onclick="toggleTico(this)"><div class="tico-word">¡Qué nota!</div><div class="tico-phonetic">qué no-ta</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Significa <strong>"qué increíble"</strong>. Si ven un animal raro en la selva: "¡Qué nota ese tucán!"</div></div>
+      <div class="tico-card tc1" onclick="toggleTico(this)"><div class="tico-word">Soda</div><div class="tico-phonetic">so-da</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">NO es una bebida — es un <strong>restaurante local pequeño y barato</strong>. Las sodas son donde se come el mejor casado. ¡Siempre busquen la soda local!</div></div>
+      <div class="tico-card tc2" onclick="toggleTico(this)"><div class="tico-word">Casado</div><div class="tico-phonetic">ca-sa-do</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">La comida típica: <strong>arroz, frijoles, ensalada y carne o pollo o pescado</strong>. Se llama "casado" porque es lo que comen los hombres casados todos los días 😂</div></div>
+      <div class="tico-card tc3" onclick="toggleTico(this)"><div class="tico-word">Gallo pinto</div><div class="tico-phonetic">ga-yo pin-to</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal"><strong>Arroz mezclado con frijoles negros</strong> — el desayuno nacional. Se come con huevos fritos y natilla. ¡Van a desayunar esto muchos días!</div></div>
+      <div class="tico-card tc4" onclick="toggleTico(this)"><div class="tico-word">Diay</div><div class="tico-phonetic">dia-i</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Como decir <strong>"bueno, pues..." o "y qué..."</strong>. Se usa al principio cuando no sabés muy bien qué responder. "Diay, no sé mae..."</div></div>
+      <div class="tico-card tc5" onclick="toggleTico(this)"><div class="tico-word">¡Upe!</div><div class="tico-phonetic">u-pe</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Se grita para <strong>avisar que llegaste a la puerta de alguien</strong>. Es tocar el timbre con la voz. Si no hay nadie en un hostel: "¡Upe, upe!"</div></div>
+      <div class="tico-card tc1" onclick="toggleTico(this)"><div class="tico-word">Pulpería</div><div class="tico-phonetic">pul-pe-rí-a</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Un <strong>almacén pequeño de barrio</strong> — como un kiosko. Tienen agua, snacks, helados. Más barato que el supermercado.</div></div>
+      <div class="tico-card tc2" onclick="toggleTico(this)"><div class="tico-word">Macha / Macho</div><div class="tico-phonetic">ma-cha / ma-cho</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Le dicen así a las personas <strong>rubias o de piel clara</strong>. "¡Hola macha!" es un piropo, no una ofensa. ¡Es muy simpático!</div></div>
+      <div class="tico-card tc3" onclick="toggleTico(this)"><div class="tico-word">Con mucho gusto</div><div class="tico-phonetic">con mu-cho gus-to</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">La forma tica de decir <strong>"de nada"</strong>. Si agradecés algo, siempre te responden "¡con mucho gusto!" con una sonrisa enorme.</div></div>
+      <div class="tico-card tc4" onclick="toggleTico(this)"><div class="tico-word">Suave</div><div class="tico-phonetic">sua-ve</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Significa <strong>"esperá", "para un poco", "tranquilo"</strong>. Si alguien va muy rápido: "¡Suave mae, suave!" Es muy gracioso decirlo.</div></div>
+      <div class="tico-card tc5" onclick="toggleTico(this)"><div class="tico-word">Zarpe</div><div class="tico-phonetic">zar-pe</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Significa <strong>"la última de algo"</strong>. "Tomemos el zarpe" = tomemos el último. También: "fue un zarpe" = fue lo máximo, lo mejor del viaje.</div></div>
+      <div class="tico-card tc1" onclick="toggleTico(this)"><div class="tico-word">¡Qué chiva!</div><div class="tico-phonetic">qué chi-va</div><div class="tico-tap">TAP PARA VER</div><div class="tico-reveal">Significa <strong>"qué buena onda", "qué cool"</strong>. Si algo les encanta: "¡Qué chiva este perezoso mae!" Funciona para personas y cosas.</div></div>
+    </div>
+  </div>
+</div>
+
 <!-- TRIVIA -->
 <div class="trivia-section">
   <div class="trivia-header">
@@ -655,6 +828,254 @@ function showResult() {
 }
 
 startTrivia();
-</script>
+
+// ══════════════════════════════════════════════
+// CLIMA
+// ══════════════════════════════════════════════
+const CLIMA_DESTINOS = [
+  { nombre:'🌊 Caribe Sur', ciudad:'Puerto Viejo de Talamanca', lat:9.6557, lon:-82.7529, emoji:'🐢' },
+  { nombre:'🌋 La Fortuna', ciudad:'La Fortuna, Alajuela', lat:10.4669, lon:-84.6438, emoji:'🌋' },
+  { nombre:'🌅 Montezuma', ciudad:'Montezuma, Puntarenas', lat:9.6553, lon:-85.0679, emoji:'🏝️' },
+  { nombre:'🏙️ San José', ciudad:'San José', lat:9.9281, lon:-84.0907, emoji:'✈️' },
+];
+
+async function fetchClima(destino) {
+  const result = document.getElementById('clima-result');
+  const loading = document.getElementById('clima-loading');
+  const errDiv = document.getElementById('clima-error');
+  result.classList.remove('show');
+  errDiv.classList.remove('show');
+  loading.classList.add('show');
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${destino.lat}&longitude=${destino.lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=America%2FCosta_Rica`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const c = data.current;
+    const wc = c.weather_code;
+    const icon = weatherIcon(wc);
+    const desc = weatherDesc(wc);
+    document.getElementById('clima-icon').textContent = icon;
+    document.getElementById('clima-city').textContent = destino.ciudad;
+    document.getElementById('clima-temp').textContent = Math.round(c.temperature_2m) + '°C';
+    document.getElementById('clima-desc').textContent = desc;
+    document.getElementById('clima-extra').textContent = `💧 Humedad: ${c.relative_humidity_2m}% · 💨 Viento: ${Math.round(c.wind_speed_10m)} km/h`;
+    loading.classList.remove('show');
+    result.classList.add('show');
+  } catch(e) {
+    loading.classList.remove('show');
+    errDiv.classList.add('show');
+  }
+}
+
+function weatherIcon(code) {
+  if (code === 0) return '☀️';
+  if (code <= 2) return '⛅';
+  if (code <= 3) return '☁️';
+  if (code <= 49) return '🌫️';
+  if (code <= 57) return '🌧️';
+  if (code <= 67) return '🌧️';
+  if (code <= 77) return '❄️';
+  if (code <= 82) return '🌦️';
+  if (code <= 86) return '🌨️';
+  if (code >= 95) return '⛈️';
+  return '🌤️';
+}
+
+function weatherDesc(code) {
+  if (code === 0) return 'Cielo despejado ☀️';
+  if (code <= 2) return 'Parcialmente nublado';
+  if (code <= 3) return 'Nublado';
+  if (code <= 49) return 'Neblina';
+  if (code <= 57) return 'Llovizna';
+  if (code <= 67) return 'Lluvia 🌧️';
+  if (code <= 77) return 'Nieve ❄️';
+  if (code <= 82) return 'Chubascos';
+  if (code >= 95) return '¡Tormenta! ⛈️';
+  return 'Variable';
+}
+
+// ══════════════════════════════════════════════
+// MOCHILA
+// ══════════════════════════════════════════════
+const MOCHILA_ITEMS = {
+  '👚 Ropa': [
+    {e:'👕',n:'Remeras livianas'},{e:'🩳',n:'Shorts'},{e:'🩱',n:'Malla de baño'},
+    {e:'🧥',n:'Buzo / campera'},{e:'🧦',n:'Medias varias'},{e:'🩴',n:'Ojotas'},
+    {e:'👟',n:'Zapatillas cerradas'},{e:'🧢',n:'Gorra o sombrero'},{e:'🕶️',n:'Anteojos de sol'},
+  ],
+  '🏖️ Playa y aventura': [
+    {e:'🤿',n:'Snorkel y antifaz'},{e:'🌊',n:'Tabla de flotar'},{e:'🎒',n:'Mochila chica'},
+    {e:'💊',n:'Pastillas para el sol'},{e:'🔦',n:'Linterna'},
+  ],
+  '🧴 Salud y cuidado': [
+    {e:'🧴',n:'Repelente de mosquitos'},{e:'☀️',n:'Protector solar'},{e:'🪥',n:'Cepillo y pasta'},
+    {e:'🧼',n:'Jabón y shampoo'},{e:'💊',n:'Botiquín básico'},{e:'🩹',n:'Curitas'},
+    {e:'🧻',n:'Papel higiénico extra'},{e:'😷',n:'Mascarillas'},
+  ],
+  '📱 Tech y documentos': [
+    {e:'📱',n:'Celular cargado'},{e:'🔌',n:'Cargador y cables'},{e:'🔋',n:'Batería portátil'},
+    {e:'📷',n:'Cámara / GoPro'},{e:'🛂',n:'Pasaporte'},{e:'💳',n:'Tarjeta y efectivo'},
+    {e:'✈️',n:'Tickets y reservas'},
+  ],
+  '🎒 Extras para el viaje': [
+    {e:'💧',n:'Botella de agua'},{e:'🍪',n:'Snacks para el auto'},{e:'📚',n:'Libro o juego'},
+    {e:'🎧',n:'Auriculares'},{e:'🌂',n:'Paraguas chico'},{e:'🧺',n:'Bolsa de playa'},
+  ],
+};
+
+function initMochila() {
+  const saved = JSON.parse(localStorage.getItem('mochila_cr') || '{}');
+  let totalItems = 0, checkedItems = 0;
+  const container = document.getElementById('mochila-cats');
+  container.innerHTML = '';
+  for (const [cat, items] of Object.entries(MOCHILA_ITEMS)) {
+    totalItems += items.length;
+    const catDiv = document.createElement('div');
+    catDiv.className = 'mochila-cat';
+    catDiv.innerHTML = `<h4>${cat}</h4><div class="mochila-items" id="cat-${cat.replace(/[^a-z]/gi,'_')}"></div>`;
+    container.appendChild(catDiv);
+    const grid = catDiv.querySelector('.mochila-items');
+    items.forEach(item => {
+      const key = cat + '|' + item.n;
+      const isChecked = !!saved[key];
+      if (isChecked) checkedItems++;
+      const div = document.createElement('div');
+      div.className = 'mochila-item' + (isChecked ? ' checked' : '');
+      div.innerHTML = `<div class="mi-box">${isChecked ? '✓' : ''}</div><span class="mi-emoji">${item.e}</span><span>${item.n}</span>`;
+      div.onclick = () => toggleMochila(div, key);
+      grid.appendChild(div);
+    });
+  }
+  updateMochilaBar(checkedItems, totalItems);
+}
+
+function toggleMochila(div, key) {
+  const saved = JSON.parse(localStorage.getItem('mochila_cr') || '{}');
+  const wasChecked = div.classList.contains('checked');
+  if (wasChecked) { div.classList.remove('checked'); div.querySelector('.mi-box').textContent = ''; delete saved[key]; }
+  else { div.classList.add('checked'); div.querySelector('.mi-box').textContent = '✓'; saved[key] = true; }
+  localStorage.setItem('mochila_cr', JSON.stringify(saved));
+  const all = document.querySelectorAll('.mochila-item');
+  const checked = document.querySelectorAll('.mochila-item.checked');
+  updateMochilaBar(checked.length, all.length);
+}
+
+function updateMochilaBar(c, t) {
+  const pct = Math.round((c / t) * 100);
+  document.getElementById('mochila-bar').style.width = pct + '%';
+  document.getElementById('mochila-pct').textContent = `${c} de ${t} cosas listas (${pct}%)`;
+  const conf = document.getElementById('mochila-confetti');
+  if (pct === 100) conf.classList.add('show');
+  else conf.classList.remove('show');
+}
+
+// ══════════════════════════════════════════════
+// ANIMALES
+// ══════════════════════════════════════════════
+const ANIMALES = [
+  {e:'🦥',n:'Perezoso',en:'Sloth',f:'¡Duerme hasta 20hs por día y baja al suelo solo 1 vez por semana!'},
+  {e:'🐒',n:'Mono Cariblanco',en:'White-faced Capuchin',f:'Es el mono más listo de Costa Rica. ¡Usa herramientas como piedras para abrir cocos!'},
+  {e:'🦜',n:'Guacamaya Roja',en:'Scarlet Macaw',f:'Vuela en pareja toda su vida. Si perdés a tu pareja, ¡nunca buscás otra!'},
+  {e:'🦎',n:'Iguana Verde',en:'Green Iguana',f:'Puede caer desde 15 metros de altura y no se lastima nada. ¡Super resistente!'},
+  {e:'🐢',n:'Tortuga Marina',en:'Sea Turtle',f:'Lleva 110 millones de años en la Tierra. ¡Vio los dinosaurios y siguió adelante!'},
+  {e:'🐸',n:'Rana Venenosa',en:'Poison Dart Frog',f:'Es tan colorida para avisar que es tóxica. Los indígenas la usaban para envenenar flechas.'},
+  {e:'🦋',n:'Mariposa Morfo',en:'Blue Morpho',f:'Sus alas azules no tienen pigmento — el color viene de cómo reflejan la luz. ¡Magia óptica!'},
+  {e:'🐊',n:'Cocodrilo',en:'American Crocodile',f:'Puede vivir hasta 70 años. El río Tárcoles tiene la mayor densidad de cocos del mundo.'},
+  {e:'🦩',n:'Garza Grande',en:'Great Egret',f:'Caza quedándose completamente quieta durante minutos. ¡Tiene más paciencia que vos!'},
+  {e:'🐬',n:'Delfín',en:'Common Dolphin',f:'En Manzanillo nadan en grupos de hasta 300 delfines. ¡Una locura verlos desde la orilla!'},
+  {e:'🦜',n:'Tucán',en:'Keel-billed Toucan',f:'Su pico enorme pesa poquísimo porque es hueco. Lo usa para regular su temperatura corporal.'},
+  {e:'🐿️',n:'Coatí',en:'White-nosed Coati',f:'Vive en grupos de hasta 30 hembras. Los machos viven solos — ¡qué vida!'},
+  {e:'🦅',n:'Águila Harpía',en:'Harpy Eagle',f:'Es el águila más grande del mundo. Puede atrapar monos al vuelo con sus garras gigantes.'},
+  {e:'🐍',n:'Boa Constrictora',en:'Boa Constrictor',f:'No es venenosa — mata apretando. Puede comer animales enteros más grandes que su cabeza.'},
+  {e:'🦌',n:'Venado Cola Blanca',en:'White-tailed Deer',f:'Cuando corre levanta la cola blanca para avisar a los demás del peligro. ¡Sistema de alarma natural!'},
+  {e:'🦟',n:'Mariposa Búho',en:'Owl Butterfly',f:'Tiene manchas que parecen ojos de búho para asustar a los pájaros que quieren comérsela.'},
+  {e:'🐻',n:'Tapir',en:'Baird\'s Tapir',f:'Es el mamífero terrestre más grande de Costa Rica y está en peligro. ¡Muy raro verlo!'},
+  {e:'🦖',n:'Basilisco',en:'Basilisk Lizard',f:'¡Puede correr sobre el agua! Por eso lo llaman "la lagartija de Jesús". Alcanza 1.5m/s.'},
+  {e:'🐟',n:'Pez Loro',en:'Parrotfish',f:'Come coral con sus dientes de pico y hace arena con él. ¡Las playas del Caribe son su popó!'},
+  {e:'🦦',n:'Nutria Neotropical',en:'Neotropical Otter',f:'Es una de las pocas criaturas que juega por diversión. Las ves deslizándose en la orilla de ríos.'},
+  {e:'🐦',n:'Quetzal',en:'Resplendent Quetzal',f:'Tiene una cola de 60cm. Los mayas lo adoraban como dios. Es casi imposible verlo — ¡buena suerte!'},
+  {e:'🦀',n:'Cangrejo Azul',en:'Land Crab',f:'En el Caribe miles de cangrejos cruzan las rutas al mismo tiempo para ir a desovar al mar.'},
+  {e:'🐙',n:'Pulpo',en:'Common Octopus',f:'Puede cambiar de color en menos de 1 segundo. Tiene tres corazones y sangre azul.'},
+  {e:'⭐',n:'Estrella de Mar',en:'Sea Star',f:'Puede regenerar brazos perdidos. Algunas especies pueden regenerar casi todo el cuerpo.'},
+];
+
+let animalPopupCurrent = null;
+
+function initAnimales() {
+  const saved = JSON.parse(localStorage.getItem('animales_cr') || '{}');
+  const grid = document.getElementById('animales-grid');
+  grid.innerHTML = '';
+  let spotted = 0;
+  ANIMALES.forEach((a, i) => {
+    const isSpotted = !!saved[i];
+    if (isSpotted) spotted++;
+    const card = document.createElement('div');
+    card.className = 'animal-card' + (isSpotted ? ' spotted' : '');
+    card.innerHTML = `<span class="animal-emoji">${a.e}</span><div class="animal-name">${a.n}</div><div class="animal-name-es">${a.en}</div>`;
+    card.onclick = () => openAnimalPopup(i);
+    grid.appendChild(card);
+  });
+  updateAnimalesBar(spotted);
+}
+
+function openAnimalPopup(idx) {
+  const saved = JSON.parse(localStorage.getItem('animales_cr') || '{}');
+  const a = ANIMALES[idx];
+  const isSpotted = !!saved[idx];
+  animalPopupCurrent = idx;
+  document.getElementById('ap-emoji').textContent = a.e;
+  document.getElementById('ap-name').textContent = a.n;
+  document.getElementById('ap-fact').textContent = a.f;
+  const btn = document.getElementById('ap-action-btn');
+  if (isSpotted) { btn.textContent = '✅ ¡Ya lo vi! Desmarcar'; btn.className = 'ap-btn unspot'; }
+  else { btn.textContent = '¡LO VI! Marcar 🎉'; btn.className = 'ap-btn'; }
+  document.getElementById('animal-overlay').classList.add('show');
+}
+
+function closeAnimalPopup() { document.getElementById('animal-overlay').classList.remove('show'); }
+
+function toggleAnimalSpotted() {
+  const idx = animalPopupCurrent;
+  const saved = JSON.parse(localStorage.getItem('animales_cr') || '{}');
+  if (saved[idx]) delete saved[idx];
+  else { saved[idx] = true; confettiBlast(); }
+  localStorage.setItem('animales_cr', JSON.stringify(saved));
+  closeAnimalPopup();
+  initAnimales();
+}
+
+function updateAnimalesBar(spotted) {
+  const pct = Math.round((spotted / ANIMALES.length) * 100);
+  document.getElementById('animales-bar').style.width = pct + '%';
+  document.getElementById('animales-count').textContent = `${spotted} / ${ANIMALES.length} vistos 🌟`;
+}
+
+function confettiBlast() {
+  // simple emoji confetti using DOM
+  const emojis = ['🎉','⭐','🌟','🦋','🌺','✨'];
+  for (let i = 0; i < 10; i++) {
+    const el = document.createElement('div');
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.cssText = `position:fixed;font-size:24px;pointer-events:none;z-index:9999;left:${20+Math.random()*60}%;top:${20+Math.random()*40}%;animation:confettiFall 1.5s ease-out forwards`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1600);
+  }
+}
+
+// ══════════════════════════════════════════════
+// TICO WORDS
+// ══════════════════════════════════════════════
+// Toggle reveal on tico cards
+function toggleTico(card) {
+  const rev = card.querySelector('.tico-reveal');
+  const tap = card.querySelector('.tico-tap');
+  rev.classList.toggle('show');
+  tap.textContent = rev.classList.contains('show') ? 'TAP PARA CERRAR' : 'TAP PARA VER';
+}
+
+// Init on load
+initMochila();
+initAnimales();
+
 </body>
 </html>
